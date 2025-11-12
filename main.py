@@ -9,8 +9,8 @@ def parse_input(line: str):
     return (parts[0], parts[1:]) if parts else ("", [])
 
 def main():
-    storage = Serializer(Path("data/address_book.json"))
-    # your implementation
+    storage = Serializer(Path("data/address_book.pkl"))
+    
 
     if storage.exists():
         try:
@@ -21,6 +21,7 @@ def main():
             book = AddressBook()
     else:
         book = AddressBook()
+
 
     print("Welcome to the assistant bot! Type 'help' to see commands.")
     try:
