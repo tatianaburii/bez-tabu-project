@@ -1,20 +1,8 @@
-from typing import Optional, Sequence
+from typing import Sequence
 from address_book import AddressBook
 from contact import Contact
 
-# =========================
-# CONTACTS
-# =========================
-
 def add_contact(args: Sequence[str], book: AddressBook):
-    """
-    Додати контакт.
-    args: [name, phone?, email?, address?, birthday? (DD.MM.YYYY)]
-    - має створити новий запис або оновити існуючий (додати поля).
-    - перевірити валідність phone/email/birthday.
-    """
-    pass
-
     if not args:
         return "Error: Contact name is required."
     
