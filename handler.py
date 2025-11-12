@@ -2,6 +2,7 @@ from typing import Sequence
 from address_book import AddressBook
 from contact import Contact
 
+
 def add_contact(args: Sequence[str], book: AddressBook):
     if not args:
         return "Error: Contact name is required."
@@ -45,29 +46,47 @@ def add_contact(args: Sequence[str], book: AddressBook):
     return message
 
 
-def edit_contact(args: Sequence[str], book: AddressBook):
-    """
-    Редагувати контакт.
-    args приклади:
-      - змінити телефон:   [name, "phone", old_phone, new_phone]
-      - змінити email:     [name, "email", new_email]
-      - змінити адресу:    [name, "address", new_address]
-      - змінити birthday:  [name, "birthday", DD.MM.YYYY]
-    """
-    pass
+def edit_contact(args: Sequence[str], book: AddressBook) -> str:
+    if not args:
+        return "Error: Contact name is required."
+
+    name = args[0]
+    field_name = args[1] if len(args) > 1 else None
+
+    contact = book.find(name)
+    if contact is None:
+        return "Contact with name {} does not exist.".format(name)
+    match field_name:
+        case "phone":
+            old_phone = args[2] if len(args) > 2 else None
+            new_phone = args[3] if len(args) > 3 else None
+            contact.edit_phone(old_phone, new_phone)
+            return "Phone updated."
+        case "email":
+            email = args[2] if len(args) > 2 else None
+            contact.email = email
+            return "Email updated."
+        case "address":
+            address = args[2] if len(args) > 2 else None
+            contact.address = address
+            return "Address updated."
+        case "birthday":
+            birthday = args[2] if len(args) > 2 else None
+            contact.add_birthday(birthday)
+            return "Birthday updated."
+        case _:
+            return "Contact was not updated."
 
 
-def delete_contact(args: Sequence[str], book: AddressBook):
-    """
-    Видалити контакт повністю або окреме поле.
-    args приклади:
-      - видалити контакт:  [name]
-      - видалити телефон:  [name, "phone", phone]
-      - видалити email:    [name, "email"]
-      - видалити address:  [name, "address"]
-      - видалити birthday: [name, "birthday"]
-    """
-    pass
+def delete_contact(args: Sequence[str], book: AddressBook) -> str:
+    if not args:
+        return "Error: Contact name is required."
+    name = args[0]
+    contact = book.find(name)
+    if contact in book.contacts:
+        book.contacts.remove(contact)
+        return "Contact deleted."
+    return "Contact was not deleted."
 
 
 def find_contacts(args: Sequence[str], book: AddressBook):
