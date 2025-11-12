@@ -1,5 +1,5 @@
 from typing import Optional
-from datetime import date
+from datetime import date, datetime
 
 class Contact:
     def __init__(self, name):
@@ -10,27 +10,51 @@ class Contact:
         self.birthday = None
 
     # implement getters, setters, str etc.
+    def _validate_phone(self, phone: str) -> bool:
+        if not isinstance(phone, str) or not phone.isdigit() or len(phone) != 10:
+            raise ValueError("Phone must contain 10 digits")
+        return True
 
     def add_phone(self, phone: str) -> bool:
-        # implementation
-        pass
+        self._validate_phone(phone)
+        if phone not in self.phones:
+            self.phones.append(phone)
+            return True
+        return False
 
     def remove_phone(self, phone: str) -> bool:
-        # implementation
-        pass
+        if phone in self.phones:
+            self.phones.remove(phone)
+            return True
+        return False
 
-    def edit_phone(self, old_phone: str, new_phone: str ) -> bool:
-        # implementation
-        pass
+    def edit_phone(self, old_phone: str, new_phone: str) -> bool:
+        if old_phone not in self.phones:
+            raise ValueError("Old phone not found")
+        self._validate_phone(new_phone)
+        index = self.phones.index(old_phone)
+        self.phones[index] = new_phone
+        return True
 
     def find_phone(self, phone: str) -> Optional[str]:
-        # implementation
-        pass
+        return phone if phone in self.phones else None
 
     def add_birthday(self, birthday: str | date) -> bool:
-        # implementation
-        pass
+        if isinstance(birthday, str):
+            try:
+                dt = datetime.strptime(birthday, "%d.%m.%Y").date()
+                self.birthday = dt
+            except ValueError:
+                raise ValueError("Invalid date format. Use DD.MM.YYYY")
+        elif isinstance(birthday, date):
+            self.birthday = birthday
+        else:
+            raise ValueError("Birthday must be a string (DD.MM.YYYY) or date object")
+        return True
 
     def __str__(self) -> str:
-        # implementation
-        return "some string"
+        phones_str = "; ".join(self.phones) if self.phones else "—"
+        email_str = self.email if self.email else "—"
+        address_str = self.address if self.address else "—"
+        bday_str = self.birthday.strftime("%d.%m.%Y") if self.birthday else "—"
+        return f"Contact name: {self.name}, phones: {phones_str}, email: {email_str}, address: {address_str}, birthday: {bday_str}"

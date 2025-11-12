@@ -1,5 +1,6 @@
 from typing import Optional, Sequence
 from address_book import AddressBook
+from contact import Contact
 
 # =========================
 # CONTACTS
@@ -13,6 +14,47 @@ def add_contact(args: Sequence[str], book: AddressBook):
     - перевірити валідність phone/email/birthday.
     """
     pass
+
+    if not args:
+        return "Error: Contact name is required."
+    
+    name = args[0]
+    phone = args[1] if len(args) > 1 else None
+    email = args[2] if len(args) > 2 else None
+    address = args[3] if len(args) > 3 else None
+    birthday = args[4] if len(args) > 4 else None
+    
+    # Find existing contact or create new one
+    contact = book.find(name)
+    if contact is None:
+        contact = Contact(name)
+        book.add_record(contact)
+        message = "Contact added."
+    else:
+        message = "Contact updated."
+
+    if phone:
+        try:
+            contact.add_phone(phone)
+        except ValueError as e:
+            return str(e)
+    
+    if email:
+        # Basic email validation
+        if "@" not in email or "." not in email.split("@")[1]:
+            return "Error: Invalid email format."
+        contact.email = email
+
+    if address:
+        contact.address = address
+    
+    if birthday:
+        try:
+            contact.add_birthday(birthday)
+        except ValueError as e:
+            return str(e)
+    
+    return message
 
 
 def edit_contact(args: Sequence[str], book: AddressBook):
