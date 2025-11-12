@@ -6,7 +6,6 @@ import os
 from address_book import AddressBook
 
 
-
 # поки що прибра Protocol так як серіалізуємо в pickle
 class Serializer:
 # серіалізація/десеріалізація адресної книги в файл
