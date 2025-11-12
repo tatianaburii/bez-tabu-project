@@ -9,9 +9,10 @@ def parse_input(line: str):
     return (parts[0], parts[1:]) if parts else ("", [])
 
 def main():
+    # Ініціалізація сховища та завантаження адресної книги
     storage = Serializer(Path("data/address_book.pkl"))
     
-
+    # Спроба завантажити існуючу адресну книгу
     if storage.exists():
         try:
             book = storage.load()
@@ -19,6 +20,7 @@ def main():
         except Exception as e:
             print(f"Failed to load address book: {e}")
             book = AddressBook()
+    # Якщо файл не існує, створюємо нову адресну книгу
     else:
         book = AddressBook()
 

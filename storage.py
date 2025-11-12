@@ -1,28 +1,31 @@
 # storage.py
-import pickle
-import os
-from __future__ import annotations
-from typing import Any
+from __future__ import annotations # перемістив вверх бо свариться можна видалити у Python 3.10+ це поведінка за замовчуванням
 
+import pickle # для бінарної серіалізації, підтримує складні об'єкти як класи
+import os
+from typing import Any # в цьому випадку не використовується, можна видалити
 from address_book import AddressBook
 
 
-class Serializer:
 
+# поки що прибра Protocol так як серіалізуємо в pickle
+class Serializer:
+# серіалізація/десеріалізація адресної книги в файл
+# ініціалізується з шляхом до файлу
     def __init__(self, file_path):
         self.file_path = file_path
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
-
+    # перевірка чи існує файл
     def exists(self):
         return os.path.exists(self.file_path)
-
+    # серіалізація
     def save(self, book: AddressBook) -> None:
         try:
             with open(self.file_path, 'wb') as f:
                 pickle.dump(book, f)
         except Exception as e:
             print(f"Error serializing book: {e}")
-
+    # десеріалізація
     def load(self) -> AddressBook:
         try:
             with open(self.file_path, 'rb') as f:
