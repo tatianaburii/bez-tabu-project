@@ -35,12 +35,6 @@ def main():
             result = dispatch(command, args, book)
             if result == "__EXIT__":
                 print("Good bye!")
-                # автозбереження перед виходом
-                try:
-                    storage.save(book)
-                    print("Address book saved.")
-                except Exception as e:
-                    print(f"Failed to save address book: {e}")
                 break
             if result:  # друкуємо лише якщо хендлер щось повернув
                 print(result)
@@ -48,8 +42,10 @@ def main():
         # про всяк випадок — ще одна спроба збереження при аварійному виході
         try:
             storage.save(book)
-        except Exception:
-            pass
+            print("Address book saved.")
+        except Exception as e:
+            print(f"Failed to save address book: {e}")
+       
 
 if __name__ == "__main__":
     main()

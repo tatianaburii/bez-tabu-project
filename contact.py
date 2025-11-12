@@ -1,4 +1,4 @@
-git checkout mainfrom typing import Optional
+from typing import Optional
 from datetime import date, datetime
 
 class Contact:
