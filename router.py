@@ -1,12 +1,9 @@
-# router.py
 from typing import Callable, Sequence, Optional
 from address_book import AddressBook
 
-# you can change list of command
 from handler import (
-    add_contact, edit_contact, delete_contact, find_contacts, show_contact,
-    list_contacts, upcoming_birthdays, validate_phone, validate_email,
-    add_note, search_notes, edit_note, delete_note, list_notes, help_command,
+    add_contact, edit_contact, delete_contact, find_contacts, show_contact, list_contacts, upcoming_birthdays, add_note,
+    search_notes, edit_note, delete_note, list_notes, help_command,
 )
 
 Handler = Callable[[Sequence[str], AddressBook], Optional[str]]
@@ -20,10 +17,6 @@ COMMANDS: dict[str, Handler] = {
     "show": show_contact,
     "all": list_contacts,
     "birthdays": upcoming_birthdays,
-
-    # validation (optional user-facing commands)
-    "validate-phone": validate_phone,
-    "validate-email": validate_email,
 
     # notes
     "note-add": add_note,
@@ -59,9 +52,11 @@ ALIASES: dict[str, str] = {
 
 TERMINATE = {"exit", "close"}
 
+
 def normalize(cmd: str) -> str:
     cmd = cmd.strip().lower()
     return ALIASES.get(cmd, cmd)
+
 
 def dispatch(command: str, args: Sequence[str], book: AddressBook) -> Optional[str]:
     cmd = normalize(command)

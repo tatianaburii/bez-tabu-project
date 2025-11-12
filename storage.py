@@ -1,11 +1,9 @@
 # storage.py
-from __future__ import annotations # перемістив вверх бо свариться можна видалити у Python 3.10+ це поведінка за замовчуванням
+from __future__ import annotations
 
-import pickle # для бінарної серіалізації, підтримує складні об'єкти як класи
+import pickle
 import os
-from typing import Any # в цьому випадку не використовується, можна видалити
 from address_book import AddressBook
-
 
 
 # поки що прибра Protocol так як серіалізуємо в pickle
