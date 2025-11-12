@@ -5,20 +5,20 @@ from datetime import date, timedelta, datetime
 
 class AddressBook:
     def __init__(self):
-        self.data = []  # store contacts
+        self.contacts = []  # store contacts
 
     def add_record(self, record: Contact) -> bool:
         # сheck if contact already exists
         existing = self.find(record.name)
         if existing:
-            index = self.data.index(existing)
-            self.data[index] = record
+            index = self.contacts.index(existing)
+            self.contacts[index] = record
         else:
-            self.data.append(record)
+            self.contacts.append(record)
         return True
 
     def find(self, name: str) -> Optional[Contact]:
-        for contact in self.data:
+        for contact in self.contacts:
             if contact.name == name:
                 return contact
         return None
@@ -26,7 +26,7 @@ class AddressBook:
     def delete(self, name: str) -> bool:
         contact = self.find(name)
         if contact:
-            self.data.remove(contact)
+            self.contacts.remove(contact)
             return True
         return False
 
@@ -35,7 +35,7 @@ class AddressBook:
         end_day = today + timedelta(days=number_of_days)
         result = []
 
-        for contact in self.data:
+        for contact in self.contacts:
             if not contact.birthday:
                 continue
 
