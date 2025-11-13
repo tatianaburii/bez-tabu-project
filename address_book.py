@@ -17,6 +17,12 @@ class AddressBook:
             self.contacts.append(record)
         return True
 
+    def find(self, name: str) -> Optional[Contact]:
+        for contact in self.contacts:
+            if contact.name == name:
+                return contact
+        return None
+
     def find_contacts(self, query: str) -> str:
         """
         Find contacts by name/phone/email/address/birthday/notes.
