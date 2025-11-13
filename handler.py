@@ -75,7 +75,11 @@ def find_contacts(args: Sequence[str], book: AddressBook):
     Пошук контактів за підрядком у name/phone/email/address.
     args: [query]
     """
-    pass
+    if not args:
+        return "Error: Please provide a search query."
+    query = args[0]
+    return book.find_contacts(query)
+
 
 
 def show_contact(args: Sequence[str], book: AddressBook):
