@@ -26,7 +26,11 @@ class Serializer:
     def load(self) -> AddressBook:
         try:
             with open(self.file_path, 'rb') as f:
-                return pickle.load(f)
+                book = pickle.load(f)
+                
+                if not hasattr(book, 'notes'):
+                    book.notes = []
+                return book
         except Exception as e:
             print(f"Error deserializing book: {e}")
             return AddressBook()

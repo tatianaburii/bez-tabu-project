@@ -1,6 +1,7 @@
 from typing import Sequence
 from address_book import AddressBook
 from contact import Contact
+from note import Note
 
 
 def add_contact(args: Sequence[str], book: AddressBook):
@@ -147,14 +148,16 @@ def validate_email(args: Sequence[str], book: AddressBook):
 # NOTES
 # =========================
 
-def add_note(args: Sequence[str], book: AddressBook):
-    """
-    Додати нотатку.
-    args приклади:
-      - простий текст:         [text...]
-      - з тегами (за бажання): ["--tags", "tag1,tag2", text...]
-    """
-    pass
+def add_note(text: str, book: AddressBook):
+    if not text:
+        return "Error: Note text is required."
+    
+    joined_text = " ".join(text)
+
+    note = Note(joined_text)
+    book.add_note(note)
+
+    return f"Note added."
 
 
 def search_notes(args: Sequence[str], book: AddressBook):
@@ -186,11 +189,16 @@ def delete_note(args: Sequence[str], book: AddressBook):
 
 
 def list_notes(args: Sequence[str], book: AddressBook):
-    """
-    Вивести список нотаток (опціонально з фільтрами/пагінацією).
-    args: []
-    """
-    pass
+    notes = book.get_all_notes()
+    
+    if not notes:
+        return "No notes found."
+    
+    result = f"Total notes: {len(notes)}\n\n"
+    for i, note in enumerate(notes, 1):
+        result += f"{i}. {note}\n"
+    
+    return result.strip()
 
 
 # =========================
