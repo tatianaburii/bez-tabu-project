@@ -31,6 +31,7 @@ class Serializer:
                 if not hasattr(book, 'notes'):
                     book.notes = []
                 return book
+                
         except Exception as e:
             print(f"Error deserializing book: {e}")
             return AddressBook()

@@ -144,10 +144,6 @@ def validate_email(args: Sequence[str], book: AddressBook):
     pass
 
 
-# =========================
-# NOTES
-# =========================
-
 def add_note(text: str, book: AddressBook):
     if not text:
         return "Error: Note text is required."

@@ -6,11 +6,10 @@ from datetime import date, timedelta, datetime
 
 class AddressBook:
     def __init__(self):
-        self.contacts = []  # store contacts
-        self.notes = []  # store notes
+        self.contacts = []
+        self.notes = []
 
     def add_record(self, record: Contact) -> bool:
-        # сheck if contact already exists
         existing = self.find(record.name)
         if existing:
             index = self.contacts.index(existing)
