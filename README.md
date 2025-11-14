@@ -26,6 +26,7 @@ python main.py
 ```
 Welcome to the assistant bot! Type 'help' to see commands.
 >
+```
 
 ## Структура проекту
 
