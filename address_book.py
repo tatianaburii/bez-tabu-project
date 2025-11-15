@@ -1,6 +1,6 @@
 from contact import Contact
 from note import Note
-from typing import List
+from typing import List, Optional
 from datetime import date, timedelta, datetime
 
 
