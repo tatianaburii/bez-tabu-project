@@ -1,10 +1,11 @@
+
 from __future__ import annotations
+from bez_tabu.address_book import AddressBook
+from bez_tabu.note_book import NoteBook
+from bez_tabu.contact import Contact
+from bez_tabu.note import Note
+from bez_tabu.validation import Validation
 from typing import Sequence, Optional
-from address_book import AddressBook
-from note_book import NoteBook
-from contact import Contact
-from note import Note
-from validation import Validation
 
 
 def add_contact(args: Sequence[str], book: AddressBook) -> str:

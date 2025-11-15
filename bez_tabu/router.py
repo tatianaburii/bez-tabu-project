@@ -1,8 +1,9 @@
 from typing import Callable, Sequence, Optional
-from address_book import AddressBook
-from note_book import NoteBook
+from bez_tabu.address_book import AddressBook
+from bez_tabu.note_book import NoteBook
 
-from handler import (
+
+from bez_tabu.handler import (
     add_contact, edit_contact, delete_contact, find_contacts, show_contact, list_contacts, upcoming_birthdays,
     add_note, search_notes, edit_note, delete_note, list_notes, help_command,
     add_note_tags, remove_note_tags, search_notes_by_tags

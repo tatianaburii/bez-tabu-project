@@ -21,6 +21,15 @@
 ```bash
 python main.py
 ```
+або встановіть пакет 
+
+pip install -e .
+
+та введіть в командному рядку
+
+bez-tabu
+
+
 
 Ви побачите привітальне повідомлення:
 ```
@@ -32,16 +41,23 @@ Welcome to the assistant bot! Type 'help' to see commands.
 
 ```
 bez-tabu-project/
-├── main.py              # Точка входу та головний цикл
-├── router.py            # Система маршрутизації та диспетчеризації команд
-├── handler.py           # Обробники команд для контактів та нотаток
-├── address_book.py      # Клас AddressBook з управлінням контактами та нотатками
-├── contact.py           # Клас Contact з логікою валідації
-├── note.py              # Клас Note з генерацією унікальних ID
-├── storage.py           # Шар серіалізації та збереження даних
-├── cli.py               # Утиліти CLI (незавершено)
-└── data/
-    └── address_book.pkl # Файл постійного зберігання
+├── bez_tabu/                  # Основний пакет програми
+│   ├── __init__.py
+│   ├── address_book.py
+│   ├── contact.py
+│   ├── note_book.py
+│   ├── note.py
+│   ├── handler.py
+│   ├── router.py
+│   ├── storage.py
+│   ├── validation.py
+│   └── cli.py                
+├── data/                      # Файли збереження (pickle, json тощо)
+├── main.py                    # Точка входу
+├── README.md                  # Документація
+├── setup.py                   # Для пакування
+├── requirements.txt           # Залежності (якщо потрібно)
+└── .gitignore                 # Ігнорування зайвих файлів
 ```
 
 ## Вимоги

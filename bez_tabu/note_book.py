@@ -1,7 +1,6 @@
 from __future__ import annotations
+from bez_tabu.note import Note
 from typing import List, Optional, Iterable
-from note import Note
-
 
 class NoteBook:
     def __init__(self) -> None:
