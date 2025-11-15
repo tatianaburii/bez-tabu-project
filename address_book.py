@@ -7,7 +7,6 @@ from datetime import date, timedelta, datetime
 class AddressBook:
     def __init__(self):
         self.contacts = []
-        self.notes = []
 
     def add_record(self, record: Contact) -> bool:
         existing = self.find(record.name)
@@ -103,10 +102,3 @@ class AddressBook:
 
         result.sort(key=lambda d: datetime.strptime(d["congratulation_date"], "%d.%m.%Y"))
         return result
-
-    def add_note(self, note: Note) -> bool:
-        self.notes.append(note)
-        return "Note added."
-
-    def get_all_notes(self) -> List[Note]:
-        return self.notes

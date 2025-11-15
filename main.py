@@ -1,6 +1,7 @@
 # main.py
 from pathlib import Path
 from address_book import AddressBook
+from note_book import NoteBook
 from router import dispatch
 from storage import Serializer
 
@@ -10,12 +11,13 @@ def parse_input(line: str):
 
 def main():
     
-    storage = Serializer(Path("data/address_book.pkl"))
+    storage_adress_book = Serializer(Path("data/address_book.pkl"), AddressBook)
+    storage_notes = Serializer(Path("data/note_book.pkl"), NoteBook)
     
    
-    if storage.exists():
+    if storage_adress_book.exists():
         try:
-            book = storage.load()
+            book = storage_adress_book.load()
             print("Address book loaded.")
         except Exception as e:
             print(f"Failed to load address book: {e}")
@@ -24,6 +26,16 @@ def main():
     else:
         book = AddressBook()
 
+    if storage_notes.exists():
+        try:
+            note_book = storage_notes.load()
+            print("Notes loaded.")
+        except Exception as e:
+            print(f"Failed to load notes: {e}")
+            note_book = NoteBook()
+   
+    else:
+        note_book = NoteBook()
 
     print("Welcome to the assistant bot! Type 'help' to see commands.")
     try:
@@ -32,7 +44,7 @@ def main():
             command, args = parse_input(line)
             if not command:
                 continue
-            result = dispatch(command, args, book)
+            result = dispatch(command, args, book, note_book)
             if result == "__EXIT__":
                 print("Good bye!")
                 break
@@ -41,10 +53,16 @@ def main():
     finally:
         
         try:
-            storage.save(book)
+            storage_adress_book.save(book)
             print("Address book saved.")
         except Exception as e:
             print(f"Failed to save address book: {e}")
+        
+        try:
+            storage_notes.save(note_book)
+            print("Notes saved.")
+        except Exception as e:
+            print(f"Failed to save notes: {e}")
        
 
 if __name__ == "__main__":
