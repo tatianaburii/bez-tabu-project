@@ -4,9 +4,10 @@ from address_book import AddressBook
 from note_book import NoteBook
 from router import dispatch
 from storage import Serializer
+import shlex
 
 def parse_input(line: str):
-    parts = line.strip().split()
+    parts = shlex.split(line.strip())
     return (parts[0], parts[1:]) if parts else ("", [])
 
 def main():
