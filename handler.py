@@ -318,7 +318,7 @@ Available commands:
 - find <query>: Search contacts by substring. Example: find John
 - show <name>: Show contact details. Example: show John
 - list: List all contacts. Example: list
-- upcoming <days>: Contacts with birthdays in N days. Example: upcoming 7
+- birthdays <days>: Contacts with birthdays in N days. Example: upcoming 7
 - add_note <text>: Add a note. Example: add_note Buy bread
 - search_notes <query>: Search notes. Example: search_notes bread
 - edit_note <id> <new_text>: Edit a note. Example: edit_note 1 New text

@@ -7,8 +7,12 @@ from storage import Serializer
 import shlex
 
 def parse_input(line: str):
-    parts = shlex.split(line.strip())
-    return (parts[0], parts[1:]) if parts else ("", [])
+    try:
+        parts = shlex.split(line.strip())
+        return (parts[0], parts[1:]) if parts else ("", [])
+    except ValueError as e:
+        print(f"Input error: {e}")
+        return ("", [])
 
 def main():
     # Save under user's home directory to meet requirement
