@@ -2,7 +2,9 @@ from typing import Optional
 from datetime import date, datetime
 from bez_tabu.validation import Validation
 
+
 class Contact:
+
     def __init__(self, name):
         self.name = name
         self.phones = []
@@ -13,7 +15,6 @@ class Contact:
     # implement getters, setters, str etc.
     def _validate_phone(self, phone: str) -> bool:
         return Validation.phone(phone)
-        
 
     def add_phone(self, phone: str) -> bool:
         is_phone_valid = self._validate_phone(phone)
@@ -43,7 +44,6 @@ class Contact:
         else:
             return "The new phone number is not valid. Example: +380963215698"
 
-
     def find_phone(self, phone: str) -> Optional[str]:
         return phone if phone in self.phones else None
 
@@ -57,7 +57,8 @@ class Contact:
         elif isinstance(birthday, date):
             self.birthday = birthday
         else:
-            raise ValueError("Birthday must be a string (DD.MM.YYYY) or date object")
+            raise ValueError("Birthday must be a string"
+                             " (DD.MM.YYYY) or date object")
         return True
 
     def __str__(self) -> str:
@@ -65,4 +66,5 @@ class Contact:
         email_str = self.email if self.email else "—"
         address_str = self.address if self.address else "—"
         bday_str = self.birthday.strftime("%d.%m.%Y") if self.birthday else "—"
-        return f"Contact name: {self.name}, phones: {phones_str}, email: {email_str}, address: {address_str}, birthday: {bday_str}"
+        return f"Contact name: {self.name}, phones: {phones_str}, \
+            email: {email_str}, address: {address_str}, birthday: {bday_str}"

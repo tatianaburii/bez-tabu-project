@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 from bez_tabu.address_book import AddressBook
 from bez_tabu.note_book import NoteBook
@@ -63,7 +62,7 @@ def edit_contact(args: Sequence[str], book: AddressBook) -> str:
             old_phone = args[2] if len(args) > 2 else None
             new_phone = args[3] if len(args) > 3 else None
             is_phone_update = contact.edit_phone(old_phone, new_phone)
-            return is_phone_update                
+            return is_phone_update
         case "email":
             email = args[2] if len(args) > 2 else None
             is_email_valid = Validation.email(email)
@@ -71,7 +70,8 @@ def edit_contact(args: Sequence[str], book: AddressBook) -> str:
                 contact.email = email
                 return "Email updated."
             else:
-                return "The email address is not valid. Example: example@gmail.com"
+                return "The email address is not valid. \
+                    Example: example@gmail.com"
         case "address":
             address = args[2] if len(args) > 2 else None
             contact.address = address
@@ -227,7 +227,8 @@ def search_notes(args: Sequence[str], note_book: NoteBook) -> str:
 
 def edit_note(args: Sequence[str], note_book: NoteBook) -> str:
     if len(args) < 2:
-        return "Usage: note-edit <note_id> <new text...> | note-edit <note_id> --tags tag1,tag2"
+        return "Usage: note-edit <note_id> <new text...> \
+            | note-edit <note_id> --tags tag1,tag2"
     note_id = args[0]
     if args[1] == "--tags":
         if len(args) < 3:
@@ -247,6 +248,7 @@ def delete_note(args: Sequence[str], note_book: NoteBook) -> str:
     note_id = args[0]
     ok = note_book.delete_note(note_id)
     return "Note deleted." if ok else f"Note {note_id} not found."
+
 
 def list_notes(args: Sequence[str], note_book: NoteBook) -> str:
     notes = note_book.get_all_notes()
@@ -313,8 +315,11 @@ def help_command(args: Sequence[str], book: AddressBook) -> str:
     """
     return """
 Available commands:
-- add <name> [phone] [email] [address] [birthday]: Add or update a contact. Example: add John +1234567890 john@example.com Kyiv 01.01.1990
-- edit <name> <field> <old_value> <new_value>: Edit a contact field. Example: edit John phone +1234567890 +0987654321
+- add <name> [phone] [email] [address] [birthday]:
+Add or update a contact.
+Example: add John +1234567890 john@example.com Kyiv 01.01.1990
+- edit <name> <field> <old_value> <new_value>:
+Edit a contact field. Example: edit John phone +1234567890 +0987654321
 - delete <name>: Delete a contact. Example: delete John
 - find <query>: Search contacts by substring. Example: find John
 - show <name>: Show contact details. Example: show John

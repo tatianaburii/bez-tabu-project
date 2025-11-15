@@ -3,10 +3,13 @@ from typing import Iterable, List, Set
 
 
 class Note:
+
     def __init__(self, text: str, tags: Iterable[str] | None = None):
         self.id = str(uuid.uuid4())[:8]
         self.text = text
-        self._tags: Set[str] = set(t.strip().lower() for t in (tags or []) if t and t.strip())
+        self._tags: Set[str] = set(
+            t.strip().lower() for t in (tags or []) if t and t.strip()
+        )
 
     @property
     def tags(self) -> List[str]:

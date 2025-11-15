@@ -2,7 +2,9 @@ from __future__ import annotations
 from bez_tabu.note import Note
 from typing import List, Optional, Iterable
 
+
 class NoteBook:
+
     def __init__(self) -> None:
         self.notes: List[Note] = []
 
@@ -50,7 +52,9 @@ class NoteBook:
             return []
         return [n for n in self.notes if q in n.text.lower()]
 
-    def find_notes_by_tags(self, tags: Iterable[str], match_all: bool = False) -> List[Note]:
+    def find_notes_by_tags(
+        self, tags: Iterable[str], match_all: bool = False
+    ) -> List[Note]:
         wanted = {t.strip().lower() for t in (tags or []) if t and t.strip()}
         if not wanted:
             return []

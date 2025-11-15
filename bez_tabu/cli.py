@@ -1,11 +1,12 @@
 # filepath: bez_tabu/cli.py
-from typing import Callable
+# from typing import Callable
 from pathlib import Path
 from bez_tabu.address_book import AddressBook
 from bez_tabu.note_book import NoteBook
 from bez_tabu.router import dispatch
 from bez_tabu.storage import Serializer
 import shlex
+
 
 def parse_input(line: str):
     try:
@@ -15,13 +16,16 @@ def parse_input(line: str):
         print(f"Input error: {e}")
         return ("", [])
 
+
 def main():
     # Save under user's home directory to meet requirement
     base_dir = Path.home() / ".personal_assistant"
     base_dir.mkdir(parents=True, exist_ok=True)
 
-    storage_address_book = Serializer(base_dir / "address_book.pkl", AddressBook)
-    storage_notes = Serializer(base_dir / "note_book.pkl", NoteBook)
+    storage_address_book = Serializer(
+        base_dir / "address_book.pkl", AddressBook)
+    storage_notes = Serializer(
+        base_dir / "note_book.pkl", NoteBook)
 
     # Load or init
     if storage_address_book.exists():
