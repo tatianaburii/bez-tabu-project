@@ -64,11 +64,6 @@ class NoteBook:
                 res.append(n)
         return res
 
-    def sort_notes_by_tags(self, mode: str = "alphabetical") -> List[Note]:
-        if mode == "count":
-            return sorted(self.notes, key=lambda n: (-len(n.tags), n.tags[0] if n.tags else "~~~~"))
-        return sorted(self.notes, key=lambda n: (n.tags[0] if n.tags else "~~~~", n.text.lower()))
-
     def format_notes(self, notes: List[Note]) -> str:
         if not notes:
             return "No notes."

@@ -5,7 +5,7 @@ from note_book import NoteBook
 from handler import (
     add_contact, edit_contact, delete_contact, find_contacts, show_contact, list_contacts, upcoming_birthdays,
     add_note, search_notes, edit_note, delete_note, list_notes, help_command,
-    add_note_tags, remove_note_tags, search_notes_by_tags, sort_notes_by_tags
+    add_note_tags, remove_note_tags, search_notes_by_tags
 )
 
 HandlerAB = Callable[[Sequence[str], AddressBook], Optional[str]]
@@ -43,7 +43,6 @@ COMMANDS: dict[str, Handler] = {
     "note-tags-add": adapt_nb(add_note_tags),
     "note-tags-remove": adapt_nb(remove_note_tags),
     "note-tags-search": adapt_nb(search_notes_by_tags),
-    "note-sort": adapt_nb(sort_notes_by_tags),
 
     # help
     "help": adapt_ab(help_command),
