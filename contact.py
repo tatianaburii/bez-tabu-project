@@ -12,10 +12,8 @@ class Contact:
 
     # implement getters, setters, str etc.
     def _validate_phone(self, phone: str) -> bool:
-        if not isinstance(phone, str) or not phone.isdigit() or len(phone) != 10:
-            raise ValueError("Phone must contain 10 digits")
-        phone = Validation.phone(phone)
-        return phone
+        Validation.phone(phone)
+        return True
 
     def add_phone(self, phone: str) -> bool:
         self._validate_phone(phone)

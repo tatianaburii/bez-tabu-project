@@ -32,9 +32,6 @@ def add_contact(args: Sequence[str], book: AddressBook):
             return str(e)
     
     if email:
-        # Basic email validation
-        # if "@" not in email or "." not in email.split("@")[1]:
-        #     return "Error: Invalid email format."
         contact.email = Validation.email(email)
 
     if address:
@@ -148,12 +145,12 @@ def search_notes(args: Sequence[str], note_book: NoteBook):
     """
     pass
 
-def edit_note(args: str, book: AddressBook):
+def edit_note(args: str, note_book: NoteBook):
     if not args or len(args) < 2:
         return "Error: The required arguments are missing."
     
-    id, text = args
-    notes = book.get_all_notes()
+    id, *new_text = args
+    notes = note_book.get_all_notes()
     note_exist = False
     note_ind = None
 
@@ -167,17 +164,17 @@ def edit_note(args: str, book: AddressBook):
             break
 
     if note_exist:
-        notes[note_ind].text = text
-        return f"Тote number {note_ind + 1} has been changed"
+        notes[note_ind].text = " ".join(new_text)
+        return f"Note number {note_ind + 1} has been changed"
     else:
         return "Note not found"
 
-def delete_note(id: str, book: AddressBook):
+def delete_note(id: str, note_book: NoteBook):
     if not id:
         return "Error: Note id is required."
 
     id = id[0]
-    notes = book.get_all_notes()
+    notes = note_book.get_all_notes()
     note_exist = False
     note_ind = None
 
@@ -192,7 +189,7 @@ def delete_note(id: str, book: AddressBook):
 
     if note_exist:
         notes.pop(note_ind)
-        return f"Тote number {note_ind + 1} has been deleted"
+        return f"Note number {note_ind + 1} has been deleted"
     else:
         return "Note not found"
 
