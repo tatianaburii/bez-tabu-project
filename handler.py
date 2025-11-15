@@ -210,9 +210,25 @@ def list_notes(args: Sequence[str], note_book: NoteBook):
 # HELP / SERVICE
 # =========================
 
-def help_command(args: Sequence[str], book: AddressBook):
+def help_command(args: Sequence[str], book: AddressBook) -> str:
     """
-    Повернути короткий опис доступних команд і формат аргументів.
+    Return a short description of available commands and argument formats.
     args: []
     """
-    pass
+    return """
+Available commands:
+- add <name> [phone] [email] [address] [birthday]: Add or update a contact. Example: add John +1234567890 john@example.com Kyiv 01.01.1990
+- edit <name> <field> <old_value> <new_value>: Edit a contact field. Example: edit John phone +1234567890 +0987654321
+- delete <name>: Delete a contact. Example: delete John
+- find <query>: Search contacts by substring. Example: find John
+- show <name>: Show contact details. Example: show John
+- list: List all contacts. Example: list
+- upcoming <days>: Contacts with birthdays in N days. Example: upcoming 7
+- add_note <text>: Add a note. Example: add_note Buy bread
+- search_notes <query>: Search notes. Example: search_notes bread
+- edit_note <id> <new_text>: Edit a note. Example: edit_note 1 New text
+- delete_note <id>: Delete a note. Example: delete_note 1
+- list_notes: List all notes. Example: list_notes
+- help: Show this help. Example: help
+- exit: Exit the program. Example: exit
+"""
