@@ -1,5 +1,6 @@
 from typing import Optional
 from datetime import date, datetime
+from validation import Validation
 
 class Contact:
     def __init__(self, name):
@@ -13,7 +14,8 @@ class Contact:
     def _validate_phone(self, phone: str) -> bool:
         if not isinstance(phone, str) or not phone.isdigit() or len(phone) != 10:
             raise ValueError("Phone must contain 10 digits")
-        return True
+        phone = Validation.phone(phone)
+        return phone
 
     def add_phone(self, phone: str) -> bool:
         self._validate_phone(phone)

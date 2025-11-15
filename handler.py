@@ -3,6 +3,7 @@ from address_book import AddressBook
 from note_book import NoteBook
 from contact import Contact
 from note import Note
+from validation import Validation
 
 
 def add_contact(args: Sequence[str], book: AddressBook):
@@ -32,9 +33,9 @@ def add_contact(args: Sequence[str], book: AddressBook):
     
     if email:
         # Basic email validation
-        if "@" not in email or "." not in email.split("@")[1]:
-            return "Error: Invalid email format."
-        contact.email = email
+        # if "@" not in email or "." not in email.split("@")[1]:
+        #     return "Error: Invalid email format."
+        contact.email = Validation.email(email)
 
     if address:
         contact.address = address
@@ -66,7 +67,7 @@ def edit_contact(args: Sequence[str], book: AddressBook) -> str:
             return "Phone updated."
         case "email":
             email = args[2] if len(args) > 2 else None
-            contact.email = email
+            contact.email = Validation.email(email)
             return "Email updated."
         case "address":
             address = args[2] if len(args) > 2 else None
@@ -126,29 +127,6 @@ def upcoming_birthdays(args: Sequence[str], book: AddressBook):
     """
     pass
 
-
-# =========================
-# VALIDATION (опційні командні хендлери)
-# =========================
-
-def validate_phone(args: Sequence[str], book: AddressBook):
-    """
-    Перевірити валідність телефону (10 цифр або ваш формат).
-    args: [phone]
-    Повернути повідомлення про валідність.
-    """
-    pass
-
-
-def validate_email(args: Sequence[str], book: AddressBook):
-    """
-    Перевірити валідність email.
-    args: [email]
-    Повернути повідомлення про валідність.
-    """
-    pass
-
-
 def add_note(args: Sequence[str], note_book: NoteBook):
     if not args:
         return "Error: Note text is required."
@@ -170,24 +148,53 @@ def search_notes(args: Sequence[str], note_book: NoteBook):
     """
     pass
 
+def edit_note(args: str, book: AddressBook):
+    if not args or len(args) < 2:
+        return "Error: The required arguments are missing."
+    
+    id, text = args
+    notes = book.get_all_notes()
+    note_exist = False
+    note_ind = None
 
-def edit_note(args: Sequence[str], note_book: NoteBook):
-    """
-    Редагувати нотатку за ідентифікатором або іншим ключем.
-    args приклади:
-      - за id: [note_id, new_text...]
-      - зміна тегів: [note_id, "--tags", "tag1,tag2"]
-    """
-    pass
+    if not notes:
+        return "No notes found."
+    
+    for note in notes:
+        if note.id == id:
+            note_ind = notes.index(note)
+            note_exist = True
+            break
 
+    if note_exist:
+        notes[note_ind].text = text
+        return f"Тote number {note_ind + 1} has been changed"
+    else:
+        return "Note not found"
 
-def delete_note(args: Sequence[str], note_book: NoteBook):
-    """
-    Видалити нотатку.
-    args: [note_id]
-    """
-    pass
+def delete_note(id: str, book: AddressBook):
+    if not id:
+        return "Error: Note id is required."
 
+    id = id[0]
+    notes = book.get_all_notes()
+    note_exist = False
+    note_ind = None
+
+    if not notes:
+        return "No notes found."
+    
+    for note in notes:
+        if note.id == id:
+            note_ind = notes.index(note)
+            note_exist = True
+            break
+
+    if note_exist:
+        notes.pop(note_ind)
+        return f"Тote number {note_ind + 1} has been deleted"
+    else:
+        return "Note not found"
 
 def list_notes(args: Sequence[str], note_book: NoteBook):
     notes = note_book.get_all_notes()
@@ -201,30 +208,14 @@ def list_notes(args: Sequence[str], note_book: NoteBook):
     
     return result.strip()
 
+
 # =========================
 # HELP / SERVICE
 # =========================
 
-def help_command(args: Sequence[str], book: AddressBook) -> str:
+def help_command(args: Sequence[str], book: AddressBook):
     """
-    Return a short description of available commands and argument formats.
+    Повернути короткий опис доступних команд і формат аргументів.
     args: []
     """
-    return """
-Available commands:
-- add <name> [phone] [email] [address] [birthday]: Add or update a contact. Example: add John +1234567890 john@example.com Kyiv 01.01.1990
-- edit <name> <field> <old_value> <new_value>: Edit a contact field. Example: edit John phone +1234567890 +0987654321
-- delete <name>: Delete a contact. Example: delete John
-- find <query>: Search contacts by substring. Example: find John
-- show <name>: Show contact details. Example: show John
-- list: List all contacts. Example: list
-- upcoming <days>: Contacts with birthdays in N days. Example: upcoming 7
-- add_note <text>: Add a note. Example: add_note Buy bread
-- search_notes <query>: Search notes. Example: search_notes bread
-- edit_note <id> <new_text>: Edit a note. Example: edit_note 1 New text
-- delete_note <id>: Delete a note. Example: delete_note 1
-- list_notes: List all notes. Example: list_notes
-- help: Show this help. Example: help
-- exit: Exit the program. Example: exit
-"""
-
+    pass
