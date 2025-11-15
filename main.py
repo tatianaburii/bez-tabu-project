@@ -1,9 +1,9 @@
 # main.py
 from pathlib import Path
-from address_book import AddressBook
-from note_book import NoteBook
-from router import dispatch
-from storage import Serializer
+from bez_tabu.address_book import AddressBook
+from bez_tabu.note_book import NoteBook
+from bez_tabu.router import dispatch
+from bez_tabu.storage import Serializer
 import shlex
 
 def parse_input(line: str):

@@ -1,6 +1,6 @@
 from typing import Optional
 from datetime import date, datetime
-from validation import Validation
+from bez_tabu.validation import Validation
 
 class Contact:
     def __init__(self, name):

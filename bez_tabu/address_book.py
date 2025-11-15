@@ -1,5 +1,5 @@
-from contact import Contact
-from note import Note
+from bez_tabu.contact import Contact
+from bez_tabu.note import Note
 from typing import List, Optional
 from datetime import date, timedelta, datetime
 

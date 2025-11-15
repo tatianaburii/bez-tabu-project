@@ -4,8 +4,8 @@ from __future__ import annotations
 import pickle
 import os
 from typing import TypeVar, Type
-from address_book import AddressBook
-from note_book import NoteBook
+from bez_tabu.address_book import AddressBook
+from bez_tabu.note_book import NoteBook
 
 T = TypeVar('T', AddressBook, NoteBook)
 

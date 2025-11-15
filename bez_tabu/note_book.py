@@ -1,4 +1,4 @@
-from note import Note
+from bez_tabu.note import Note
 from typing import List, Optional
 
 
