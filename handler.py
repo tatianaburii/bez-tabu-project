@@ -1,5 +1,6 @@
 from typing import Sequence
 from address_book import AddressBook
+from note_book import NoteBook
 from contact import Contact
 from note import Note
 
@@ -148,19 +149,19 @@ def validate_email(args: Sequence[str], book: AddressBook):
     pass
 
 
-def add_note(text: str, book: AddressBook):
-    if not text:
+def add_note(args: Sequence[str], note_book: NoteBook):
+    if not args:
         return "Error: Note text is required."
     
-    joined_text = " ".join(text)
+    joined_text = " ".join(args)
 
     note = Note(joined_text)
-    book.add_note(note)
+    note_book.add_note(note)
 
     return f"Note added."
 
 
-def search_notes(args: Sequence[str], book: AddressBook):
+def search_notes(args: Sequence[str], note_book: NoteBook):
     """
     Пошук нотаток за підрядком у тексті або за тегами.
     args приклади:
@@ -170,7 +171,7 @@ def search_notes(args: Sequence[str], book: AddressBook):
     pass
 
 
-def edit_note(args: Sequence[str], book: AddressBook):
+def edit_note(args: Sequence[str], note_book: NoteBook):
     """
     Редагувати нотатку за ідентифікатором або іншим ключем.
     args приклади:
@@ -180,7 +181,7 @@ def edit_note(args: Sequence[str], book: AddressBook):
     pass
 
 
-def delete_note(args: Sequence[str], book: AddressBook):
+def delete_note(args: Sequence[str], note_book: NoteBook):
     """
     Видалити нотатку.
     args: [note_id]
@@ -188,8 +189,8 @@ def delete_note(args: Sequence[str], book: AddressBook):
     pass
 
 
-def list_notes(args: Sequence[str], book: AddressBook):
-    notes = book.get_all_notes()
+def list_notes(args: Sequence[str], note_book: NoteBook):
+    notes = note_book.get_all_notes()
     
     if not notes:
         return "No notes found."

@@ -120,3 +120,4 @@ dmypy.json
 #present.md
 present.md
 /data/address_book.pkl
+/data/note_book.pkl
