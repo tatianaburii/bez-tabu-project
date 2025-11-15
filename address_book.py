@@ -1,14 +1,15 @@
 from contact import Contact
-from typing import Optional
+from note import Note
+from typing import List
 from datetime import date, timedelta, datetime
 
 
 class AddressBook:
     def __init__(self):
-        self.contacts = []  # store contacts
+        self.contacts = []
+        self.notes = []
 
     def add_record(self, record: Contact) -> bool:
-        # сheck if contact already exists
         existing = self.find(record.name)
         if existing:
             index = self.contacts.index(existing)
@@ -108,3 +109,10 @@ class AddressBook:
 
         result.sort(key=lambda d: datetime.strptime(d["congratulation_date"], "%d.%m.%Y"))
         return result
+
+    def add_note(self, note: Note) -> bool:
+        self.notes.append(note)
+        return "Note added."
+
+    def get_all_notes(self) -> List[Note]:
+        return self.notes
