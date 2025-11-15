@@ -1,14 +1,69 @@
+from __future__ import annotations
 from bez_tabu.note import Note
-from typing import List, Optional
-
+from typing import List, Optional, Iterable
 
 class NoteBook:
-    def __init__(self):
-        self.notes = []
+    def __init__(self) -> None:
+        self.notes: List[Note] = []
 
-    def add_note(self, note: Note) -> bool:
+    def add_note(self, note: Note) -> str:
         self.notes.append(note)
-        return True
+        return "Note added."
 
     def get_all_notes(self) -> List[Note]:
-        return self.notes
+        return list(self.notes)
+
+    def find_by_id(self, note_id: str) -> Optional[Note]:
+        for n in self.notes:
+            if getattr(n, "id", None) == note_id:
+                return n
+        return None
+
+    def edit_note_text(self, note_id: str, new_text: str) -> bool:
+        n = self.find_by_id(note_id)
+        if not n:
+            return False
+        n.text = new_text
+        return True
+
+    def set_note_tags(self, note_id: str, tags: Iterable[str]) -> bool:
+        n = self.find_by_id(note_id)
+        if not n:
+            return False
+        n._tags.clear()
+        for t in tags:
+            if t and t.strip():
+                n._tags.add(t.strip().lower())
+        return True
+
+    def delete_note(self, note_id: str) -> bool:
+        n = self.find_by_id(note_id)
+        if not n:
+            return False
+        self.notes.remove(n)
+        return True
+
+    # Search & sort
+    def find_notes_by_text(self, query: str) -> List[Note]:
+        q = (query or "").lower()
+        if not q:
+            return []
+        return [n for n in self.notes if q in n.text.lower()]
+
+    def find_notes_by_tags(self, tags: Iterable[str], match_all: bool = False) -> List[Note]:
+        wanted = {t.strip().lower() for t in (tags or []) if t and t.strip()}
+        if not wanted:
+            return []
+        res: List[Note] = []
+        for n in self.notes:
+            note_tags = set(n.tags)
+            if match_all and wanted.issubset(note_tags):
+                res.append(n)
+            elif not match_all and note_tags.intersection(wanted):
+                res.append(n)
+        return res
+
+    def format_notes(self, notes: List[Note]) -> str:
+        if not notes:
+            return "No notes."
+        return "\n".join(str(n) for n in notes)

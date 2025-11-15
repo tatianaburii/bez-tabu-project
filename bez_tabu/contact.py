@@ -12,15 +12,18 @@ class Contact:
 
     # implement getters, setters, str etc.
     def _validate_phone(self, phone: str) -> bool:
-        Validation.phone(phone)
-        return True
+        return Validation.phone(phone)
+        
 
     def add_phone(self, phone: str) -> bool:
-        self._validate_phone(phone)
-        if phone not in self.phones:
+        is_phone_valid = self._validate_phone(phone)
+        if phone not in self.phones and is_phone_valid:
             self.phones.append(phone)
             return True
-        return False
+        elif not is_phone_valid:
+            print("The phone number is not valid. Example: +380963215698")
+        else:
+            print("This contact already has this phone number.")
 
     def remove_phone(self, phone: str) -> bool:
         if phone in self.phones:
@@ -31,10 +34,15 @@ class Contact:
     def edit_phone(self, old_phone: str, new_phone: str) -> str:
         if old_phone not in self.phones:
             return "Old phone not found"
-        self._validate_phone(new_phone)
-        index = self.phones.index(old_phone)
-        self.phones[index] = new_phone
-        return "Phone updated successfully"
+
+        is_phone_valid = self._validate_phone(new_phone)
+        if is_phone_valid:
+            index = self.phones.index(old_phone)
+            self.phones[index] = new_phone
+            return "Phone updated."
+        else:
+            return "The new phone number is not valid. Example: +380963215698"
+
 
     def find_phone(self, phone: str) -> Optional[str]:
         return phone if phone in self.phones else None
