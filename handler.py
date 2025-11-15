@@ -1,5 +1,6 @@
 from typing import Sequence
 from address_book import AddressBook
+from note_book import NoteBook
 from contact import Contact
 from note import Note
 
@@ -148,19 +149,19 @@ def validate_email(args: Sequence[str], book: AddressBook):
     pass
 
 
-def add_note(text: str, book: AddressBook):
-    if not text:
+def add_note(args: Sequence[str], note_book: NoteBook):
+    if not args:
         return "Error: Note text is required."
     
-    joined_text = " ".join(text)
+    joined_text = " ".join(args)
 
     note = Note(joined_text)
-    book.add_note(note)
+    note_book.add_note(note)
 
     return f"Note added."
 
 
-def search_notes(args: Sequence[str], book: AddressBook):
+def search_notes(args: Sequence[str], note_book: NoteBook):
     """
     Пошук нотаток за підрядком у тексті або за тегами.
     args приклади:
@@ -170,7 +171,7 @@ def search_notes(args: Sequence[str], book: AddressBook):
     pass
 
 
-def edit_note(args: Sequence[str], book: AddressBook):
+def edit_note(args: Sequence[str], note_book: NoteBook):
     """
     Редагувати нотатку за ідентифікатором або іншим ключем.
     args приклади:
@@ -180,7 +181,7 @@ def edit_note(args: Sequence[str], book: AddressBook):
     pass
 
 
-def delete_note(args: Sequence[str], book: AddressBook):
+def delete_note(args: Sequence[str], note_book: NoteBook):
     """
     Видалити нотатку.
     args: [note_id]
@@ -188,8 +189,8 @@ def delete_note(args: Sequence[str], book: AddressBook):
     pass
 
 
-def list_notes(args: Sequence[str], book: AddressBook):
-    notes = book.get_all_notes()
+def list_notes(args: Sequence[str], note_book: NoteBook):
+    notes = note_book.get_all_notes()
     
     if not notes:
         return "No notes found."
@@ -200,14 +201,30 @@ def list_notes(args: Sequence[str], book: AddressBook):
     
     return result.strip()
 
-
 # =========================
 # HELP / SERVICE
 # =========================
 
-def help_command(args: Sequence[str], book: AddressBook):
+def help_command(args: Sequence[str], book: AddressBook) -> str:
     """
-    Повернути короткий опис доступних команд і формат аргументів.
+    Return a short description of available commands and argument formats.
     args: []
     """
-    pass
+    return """
+Available commands:
+- add <name> [phone] [email] [address] [birthday]: Add or update a contact. Example: add John +1234567890 john@example.com Kyiv 01.01.1990
+- edit <name> <field> <old_value> <new_value>: Edit a contact field. Example: edit John phone +1234567890 +0987654321
+- delete <name>: Delete a contact. Example: delete John
+- find <query>: Search contacts by substring. Example: find John
+- show <name>: Show contact details. Example: show John
+- list: List all contacts. Example: list
+- upcoming <days>: Contacts with birthdays in N days. Example: upcoming 7
+- add_note <text>: Add a note. Example: add_note Buy bread
+- search_notes <query>: Search notes. Example: search_notes bread
+- edit_note <id> <new_text>: Edit a note. Example: edit_note 1 New text
+- delete_note <id>: Delete a note. Example: delete_note 1
+- list_notes: List all notes. Example: list_notes
+- help: Show this help. Example: help
+- exit: Exit the program. Example: exit
+"""
+
