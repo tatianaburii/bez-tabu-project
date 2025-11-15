@@ -28,13 +28,13 @@ class Contact:
             return True
         return False
 
-    def edit_phone(self, old_phone: str, new_phone: str) -> bool:
+    def edit_phone(self, old_phone: str, new_phone: str) -> str:
         if old_phone not in self.phones:
-            raise ValueError("Old phone not found")
+            return "Old phone not found"
         self._validate_phone(new_phone)
         index = self.phones.index(old_phone)
         self.phones[index] = new_phone
-        return True
+        return "Phone updated successfully"
 
     def find_phone(self, phone: str) -> Optional[str]:
         return phone if phone in self.phones else None
