@@ -57,7 +57,6 @@ class AddressBook:
             
             if hasattr(contact, 'notes') and contact.notes and query_lower in contact.notes.lower():
                 found_contacts.append(contact)
-                continue
         
         if not found_contacts:
             return "No contacts found matching the query."
