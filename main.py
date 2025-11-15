@@ -65,4 +65,7 @@ def main():
             print(f"Failed to save notes: {e}")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as err:
+        print(f"Error: {err}")
