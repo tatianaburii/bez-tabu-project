@@ -26,7 +26,7 @@ class AddressBook:
 
     def find_contacts(self, query: str) -> str:
         """
-        Find contacts by name/phone/email/address/birthday/notes.
+        Find contacts by name/phone/email/address/birthday.
         """
         if not query:
             return "Error: Please provide a search query."
