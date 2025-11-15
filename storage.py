@@ -42,4 +42,5 @@ class Serializer:
         except Exception as e:
             obj_type = "address book" if self.default_class == AddressBook else "notes"
             print(f"Error deserializing {obj_type}: {e}")
+
             return self.default_class()
