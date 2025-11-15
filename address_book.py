@@ -1,6 +1,6 @@
 from contact import Contact
 from note import Note
-from typing import List
+from typing import List, Optional
 from datetime import date, timedelta, datetime
 
 
@@ -17,6 +17,12 @@ class AddressBook:
             self.contacts.append(record)
         return True
 
+    def find(self, name: str) -> Optional[Contact]:
+        for contact in self.contacts:
+            if contact.name == name:
+                return contact
+        return None
+
     def find_contacts(self, query: str) -> str:
         """
         Find contacts by name/phone/email/address/birthday/notes.
@@ -32,27 +38,22 @@ class AddressBook:
             if query_lower in contact.name.lower():
                 found_contacts.append(contact)
                 continue
-            
-            
+             
             if any(query_lower in phone.lower() for phone in contact.phones):
                 found_contacts.append(contact)
                 continue
             
-            
             if contact.email and query_lower in contact.email.lower():
                 found_contacts.append(contact)
                 continue
-            
            
             if contact.address and query_lower in contact.address.lower():
                 found_contacts.append(contact)
                 continue
             
-            
             if contact.birthday and query_lower in str(contact.birthday).lower():
                 found_contacts.append(contact)
                 continue
-            
             
             if hasattr(contact, 'notes') and contact.notes and query_lower in contact.notes.lower():
                 found_contacts.append(contact)
@@ -60,8 +61,7 @@ class AddressBook:
         
         if not found_contacts:
             return "No contacts found matching the query."
-        
-       
+            
         result = "Found contacts:\n"
         for contact in found_contacts:
             result += str(contact) + "\n"
