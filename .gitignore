@@ -120,5 +120,10 @@ dmypy.json
 #present.md
 present.md
 /data/address_book.pkl
+<<<<<<< HEAD
+git_com.md
+task.md
+=======
 /data/note_book.pkl
 git_com.md
+>>>>>>> 22bd5fd2cb4e737540278031daf4376bdb1901ac
