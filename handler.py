@@ -31,7 +31,11 @@ def add_contact(args: Sequence[str], book: AddressBook) -> str:
             return str(e)
 
     if email:
-        contact.email = Validation.email(email)
+        is_email_valid = Validation.email(email)
+        if is_email_valid:
+            contact.email = email
+        else:
+            print("The email address is not valid. Example: example@gmail.com")
 
     if address:
         contact.address = address
@@ -57,12 +61,16 @@ def edit_contact(args: Sequence[str], book: AddressBook) -> str:
         case "phone":
             old_phone = args[2] if len(args) > 2 else None
             new_phone = args[3] if len(args) > 3 else None
-            contact.edit_phone(old_phone, new_phone)
-            return "Phone updated."
+            is_phone_update = contact.edit_phone(old_phone, new_phone)
+            return is_phone_update                
         case "email":
             email = args[2] if len(args) > 2 else None
-            contact.email = Validation.email(email)
-            return "Email updated."
+            is_email_valid = Validation.email(email)
+            if is_email_valid:
+                contact.email = email
+                return "Email updated."
+            else:
+                return "The email address is not valid. Example: example@gmail.com"
         case "address":
             address = args[2] if len(args) > 2 else None
             contact.address = address
@@ -238,54 +246,6 @@ def delete_note(args: Sequence[str], note_book: NoteBook) -> str:
     note_id = args[0]
     ok = note_book.delete_note(note_id)
     return "Note deleted." if ok else f"Note {note_id} not found."
-def edit_note(args: str, note_book: NoteBook):
-    if not args or len(args) < 2:
-        return "Error: The required arguments are missing."
-
-    id, *new_text = args
-    notes = note_book.get_all_notes()
-    note_exist = False
-    note_ind = None
-
-    if not notes:
-        return "No notes found."
-
-    for note in notes:
-        if note.id == id:
-            note_ind = notes.index(note)
-            note_exist = True
-            break
-
-    if note_exist:
-        notes[note_ind].text = " ".join(new_text)
-        return f"Note number {note_ind + 1} has been changed"
-    else:
-        return "Note not found"
-
-def delete_note(id: str, note_book: NoteBook):
-    if not id:
-        return "Error: Note id is required."
-
-    id = id[0]
-    notes = note_book.get_all_notes()
-    note_exist = False
-    note_ind = None
-
-    if not notes:
-        return "No notes found."
-
-    for note in notes:
-        if note.id == id:
-            note_ind = notes.index(note)
-            note_exist = True
-            break
-
-    if note_exist:
-        notes.pop(note_ind)
-        return f"Note number {note_ind + 1} has been deleted"
-    else:
-        return "Note not found"
-
 
 def list_notes(args: Sequence[str], note_book: NoteBook) -> str:
     notes = note_book.get_all_notes()
