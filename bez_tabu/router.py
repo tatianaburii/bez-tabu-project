@@ -2,7 +2,6 @@ from typing import Callable, Sequence, Optional
 from bez_tabu.address_book import AddressBook
 from bez_tabu.note_book import NoteBook
 
-
 from bez_tabu.handler import (
     add_contact,
     edit_contact,
@@ -29,7 +28,7 @@ Handler = Callable[[Sequence[str], AddressBook, NoteBook], Optional[str]]
 
 def adapt_ab(h: HandlerAB) -> Handler:
     def wrapper(
-        args: Sequence[str], book: AddressBook, note_book: NoteBook
+            args: Sequence[str], book: AddressBook, note_book: NoteBook
     ) -> Optional[str]:
         return h(args, book)
 
@@ -38,7 +37,7 @@ def adapt_ab(h: HandlerAB) -> Handler:
 
 def adapt_nb(h: HandlerNB) -> Handler:
     def wrapper(
-        args: Sequence[str], book: AddressBook, note_book: NoteBook
+            args: Sequence[str], book: AddressBook, note_book: NoteBook
     ) -> Optional[str]:
         return h(args, note_book)
 
@@ -108,7 +107,7 @@ def normalize(cmd: str) -> str:
 
 
 def dispatch(
-    command: str, args: Sequence[str], book: AddressBook, note_book: NoteBook
+        command: str, args: Sequence[str], book: AddressBook, note_book: NoteBook
 ) -> Optional[str]:
     cmd = normalize(command)
     if cmd in TERMINATE:

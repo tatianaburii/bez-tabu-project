@@ -1,6 +1,4 @@
 from bez_tabu.contact import Contact
-
-# from bez_tabu.note import Note
 from typing import Optional
 from datetime import date, timedelta, datetime
 
@@ -54,15 +52,15 @@ class AddressBook:
                 continue
 
             if (contact.birthday
-                and query_lower in str(contact.birthday).lower()
-                ):
+                    and query_lower in str(contact.birthday).lower()
+            ):
                 found_contacts.append(contact)
                 continue
 
             if (
-                hasattr(contact, "notes")
-                and contact.notes
-                and query_lower in contact.notes.lower()
+                    hasattr(contact, "notes")
+                    and contact.notes
+                    and query_lower in contact.notes.lower()
             ):
                 found_contacts.append(contact)
 

@@ -1,5 +1,3 @@
-# filepath: bez_tabu/cli.py
-# from typing import Callable
 from pathlib import Path
 from bez_tabu.address_book import AddressBook
 from bez_tabu.note_book import NoteBook
