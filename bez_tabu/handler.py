@@ -316,20 +316,68 @@ def help_command(args: Sequence[str], book: AddressBook) -> str:
     return """
 Available commands:
 - add <name> [phone] [email] [address] [birthday]:
-Add or update a contact.
-Example: add John +1234567890 john@example.com Kyiv 01.01.1990
+    Add or update a contact.
+    Example: add "John Doe" +1234567890 john@example.com Kyiv 01.01.1990
+
 - edit <name> <field> <old_value> <new_value>:
-Edit a contact field. Example: edit John phone +1234567890 +0987654321
-- delete <name>: Delete a contact. Example: delete John
-- find <query>: Search contacts by substring. Example: find John
-- show <name>: Show contact details. Example: show John
-- all: List all contacts. Example: all
-- birthdays <days>: Contacts with birthdays in N days. Example: upcoming 7
-- add_note <text>: Add a note. Example: add_note Buy bread
-- search_notes <query>: Search notes. Example: search_notes bread
-- edit_note <id> <new_text>: Edit a note. Example: edit_note 1 New text
-- delete_note <id>: Delete a note. Example: delete_note 1
-- list_notes: List all notes. Example: list_notes
-- help: Show this help. Example: help
-- exit: Exit the program. Example: exit
+    Edit a contact field.
+    Example: edit "John Doe" phone +1234567890 +0987654321
+
+- delete <name>:
+    Delete a contact.
+    Example: delete "John Doe"
+
+- find <query>:
+    Search contacts by substring.
+    Example: find John
+
+- show <name>:
+    Show contact details.
+    Example: show "John Doe"
+
+- all:
+    List all contacts.
+
+- birthdays <days>:
+    Show contacts with birthdays in N days.
+    Example: birthdays 7
+
+- note-add <text> [#tag1,#tag2,...]:
+    Add a note (tags optional, use #tag).
+    Example: note-add "Buy bread" #shopping,#food
+
+- note-search <query>:
+    Search notes by text or tag.
+    Example: note-search bread
+
+- note-edit <id> <new_text> | note-edit <id> --tags tag1,tag2:
+    Edit note text or tags.
+    Example: note-edit 1 "Buy milk"
+    Example: note-edit 1 --tags shopping,food
+
+- note-delete <id>:
+    Delete a note.
+    Example: note-delete 1
+
+- notes:
+    List all notes.
+
+- note-tags-add <id> <tag1> [tag2 ...]:
+    Add tags to a note.
+    Example: note-tags-add 1 shopping food
+
+- note-tags-remove <id> <tag1> [tag2 ...]:
+    Remove tags from a note.
+    Example: note-tags-remove 1 shopping
+
+- note-tags-search [--all] <tag1> [tag2 ...]:
+    Search notes by tags.
+    Example: note-tags-search shopping
+    Example: note-tags-search --all shopping food
+
+- help:
+    Show this help.
+
+- exit:
+    Exit the program.
 """
