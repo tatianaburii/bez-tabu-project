@@ -323,7 +323,7 @@ Edit a contact field. Example: edit John phone +1234567890 +0987654321
 - delete <name>: Delete a contact. Example: delete John
 - find <query>: Search contacts by substring. Example: find John
 - show <name>: Show contact details. Example: show John
-- list: List all contacts. Example: list
+- all: List all contacts. Example: all
 - birthdays <days>: Contacts with birthdays in N days. Example: upcoming 7
 - add_note <text>: Add a note. Example: add_note Buy bread
 - search_notes <query>: Search notes. Example: search_notes bread
